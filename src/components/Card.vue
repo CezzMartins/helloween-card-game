@@ -1,15 +1,17 @@
 <template>
-    <div class="card" @click="selectCard">
-        <div v-if="visible" class="card-face is-front">
+    <div class="card" :class="flippedStyles" @click="selectCard">
+        <div  class="card-face is-front">
             <img :src="require(`@/assets/images/${value}.png`)" :alt="value" />
             <img v-if="matched" src="../assets/images/checkmark.svg" class="icon-checkmark"/>
         </div>
-        <div v-else class="card-face is-back">
+        <div class="card-face is-back">
         </div>
     </div>
 </template>
 
 <script>
+import { computed } from '@vue/reactivity'
+
     export default {
         props: {
             matched: {
@@ -30,6 +32,12 @@
             }
         },
         setup(props, context){
+            const flippedStyles = computed(() => {
+                if(props.visible){
+                    return 'is-flipped'
+                }
+            })
+
             const selectCard = () => {
                 context.emit('select-card', { 
                     position: props.position,
@@ -38,6 +46,7 @@
                 })
             }
             return{
+                flippedStyles,
                 selectCard
             }
         }
@@ -47,6 +56,12 @@
 <style lang="css" scoped>
 .card{
   position: relative;
+  transition: 0.5s transform ease;
+  transform-style: preserve-3d;
+}
+.card.is-flipped{
+    transform: rotateY(180deg);
+
 }
 .card-face{
     width: 100%;
@@ -56,15 +71,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    backface-visibility: hidden;
     
 }
 .card-face.is-front{
     background-image: url('../assets/images/card-bg.png');
     color: white;
+    transform: rotateY(180deg);
 }
 .card-face.is-back{
     background-image: url('../assets/images/card-bg-empty.png');
-    
     color: white;
 }
 .icon-checkmark{
@@ -72,4 +88,5 @@
     right: 5px;
     bottom: 5px;
 }
+
 </style>
