@@ -12,6 +12,10 @@
 <script>
     export default {
         props: {
+            matched: {
+                type: Boolean,
+                default: false
+            },
             value: {
                 type: Number,
                 required: true,
@@ -27,7 +31,11 @@
         },
         setup(props, context){
             const selectCard = () => {
-                context.emit('select-card', { position: props.position })
+                context.emit('select-card', { 
+                    position: props.position,
+                    faceValue: props.value
+
+                })
             }
             return{
                 selectCard
