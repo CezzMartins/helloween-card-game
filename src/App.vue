@@ -9,7 +9,6 @@
           @select-card="flipCard"/> 
   </section>
   <h2>{{ status }}</h2>
-  <h3>Remaining Pairs {{ remainingPairs  }}</h3>
 </template>
 
 <script>
@@ -25,7 +24,13 @@ export default {
   setup(){
     const cardList = ref([])
     const userSelection = ref([])
-    const status = ref('')
+    const status = computed(() => {
+      if(remainingPairs.value === 0){
+        return 'Player Wins!!'
+      }else{
+        return `Remaining Paris: ${remainingPairs.value}`
+      }
+    })
 
 
     const remainingPairs = computed(() => {
@@ -72,7 +77,6 @@ export default {
     }, {  deep: true })
     return{
       cardList, flipCard, userSelection,status,
-      remainingPairs
     }
   }
 }
