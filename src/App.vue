@@ -1,15 +1,21 @@
 <template>
-  <h1>Card Game Helloween</h1>
-  <section class="game-board">
-    <Card v-for="(card, index) in cardList" 
-          :key="index" :value="card.value" 
-          :visible="card.visible"
-          :position="card.position"
-          :matched="card.matched"
-          @select-card="flipCard"/> 
-  </section>
-  <h2>{{ status }}</h2>
-  <button @click="restartGame">Restart Game</button>
+  <div class="container">
+    <h1 class="sr-only">Peek a Vue</h1>
+    <img src="@/assets/images/peek-a-vue-title.png" alt="title game" class="title">
+    <section class="game-board">
+      <Card v-for="(card, index) in cardList" 
+            :key="index" :value="card.value" 
+            :visible="card.visible"
+            :position="card.position"
+            :matched="card.matched"
+            @select-card="flipCard"/> 
+    </section>
+    <h2>{{ status }}</h2>
+    <button @click="restartGame" class="button"> 
+      <img src="@/assets/images/restart.svg" alt="restart button"> 
+      Restart Game
+    </button>
+  </div>
 </template>
 
 <script>
@@ -27,6 +33,7 @@ export default {
     const cardList = ref([])
     const userSelection = ref([])
 
+    // player status in game win or keep playing
     const status = computed(() => {
       if(remainingPairs.value === 0){
         return 'Player Wins!!'
@@ -34,16 +41,20 @@ export default {
         return `Remaining Paris: ${remainingPairs.value}`
       }
     })
+
+    //Predict the cards ramaining
     const remainingPairs = computed(() => {
       const remainingCards = cardList.value.filter((card) => card.matched === false).length
       console.log(remainingCards)
       return remainingCards / 2
     })
 
+    //Shuffle the deck
     const shuffleCards = () => {
       cardList.value = _.shuffle(cardList.value)
     }
 
+    //restart game and shuffle
     const restartGame = () => {
       shuffleCards()
 
@@ -57,8 +68,8 @@ export default {
       })
     }
 
-
-    const cardItems = [1,2,3,4,5,6,7,8]
+    // create a cople cards for find a metch
+    const cardItems = ['bat', 'candy', 'cauldron', 'cupcake', 'ghost', 'moon', 'pumpkin', 'witch-hat']
 
     cardItems.forEach( item  => {
       cardList.value.push({
@@ -82,16 +93,9 @@ export default {
 
        }
      })
-    
-    // for (let i = 0; i < 16; i++){
-    //   cardList.value.push({
-    //     value: 8,
-    //     visible: false,
-    //     position: i,
-    //     matched: false,
-    //   })      
-    // }
 
+
+    // Flipe cards and check the value
     const flipCard = (payload) => {
       cardList.value[payload.position].visible = true
 
@@ -106,7 +110,7 @@ export default {
         userSelection.value[0] = payload
       }
     }
-
+    // Flipe cards and check the value
     watch(userSelection, (currentValue) => { 
       if (currentValue.length === 2){ 
         const cardOne =  currentValue[0]
@@ -132,22 +136,76 @@ export default {
 </script>
 
 <style>
+
+html, body{
+  margin: 0;
+  padding: 0; 
+}
+h1{
+  margin-top: 0;
+}
+.container{
+  display: flex;
+  height:100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-image: url('./assets/images/page-bg.png');
+  background-color: #00070c;
+  height:100vh;
+  color: #fff;
+  
+}
+.title{
+  padding-bottom: 30px;
 }
 
 
 .game-board{
   display: grid;
-  grid-template-columns: repeat(4, 100px);
-  grid-template-rows: repeat(4, 100px);
+  grid-template-columns: repeat(4, 120px);
+  grid-template-rows: repeat(4, 120px);
   grid-row-gap: 30px;
   grid-column-gap: 30px;
   justify-content: center;
+}
+.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+
+}
+button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  background-color: orange;
+  font-weight: 700;
+  color: white;
+  padding: 1rem;
+
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+  transition: all ease 0.2s;
+}
+button:hover{
+  filter: brightness(0.8);
 }
 </style>
