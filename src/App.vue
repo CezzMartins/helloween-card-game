@@ -24,6 +24,7 @@ import _ from 'lodash'
 import Card from '@/components/Card.vue';
 import { computed, ref } from '@vue/reactivity';
 import { watch } from '@vue/runtime-core';
+import { lauchConfetti } from '@/utilities/confetti'
 
 export default {
   name: 'App',
@@ -108,6 +109,14 @@ export default {
         userSelection.value[0] = payload
       }
     }
+
+    //Lauch confetti animation on win game
+    watch(remainingPairs, (currentValue) => {
+      if(currentValue === 0){
+        lauchConfetti()
+      }
+    })
+
     // Flipe cards and check the value
     watch(userSelection, (currentValue) => { 
       if (currentValue.length === 2){ 
