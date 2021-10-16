@@ -26,6 +26,7 @@ export default {
   setup(){
     const cardList = ref([])
     const userSelection = ref([])
+
     const status = computed(() => {
       if(remainingPairs.value === 0){
         return 'Player Wins!!'
@@ -33,8 +34,6 @@ export default {
         return `Remaining Paris: ${remainingPairs.value}`
       }
     })
-
-
     const remainingPairs = computed(() => {
       const remainingCards = cardList.value.filter((card) => card.matched === false).length
       console.log(remainingCards)
@@ -58,14 +57,40 @@ export default {
       })
     }
 
-    for (let i = 0; i < 16; i++){
+
+    const cardItems = [1,2,3,4,5,6,7,8]
+
+    cardItems.forEach( item  => {
       cardList.value.push({
-        value: 8,
-        visible: false,
-        position: i,
+        value: item,
+        visible: true,
+        position: null,
         matched: false,
       })
-    }
+      cardList.value.push({
+        value: item,
+        visible: true,
+        position: null,
+        matched: false,
+      })   
+
+    })
+     cardList.value = cardList.value.map((card, index) => {
+       return{
+         ...card,
+         position: index,
+
+       }
+     })
+    
+    // for (let i = 0; i < 16; i++){
+    //   cardList.value.push({
+    //     value: 8,
+    //     visible: false,
+    //     position: i,
+    //     matched: false,
+    //   })      
+    // }
 
     const flipCard = (payload) => {
       cardList.value[payload.position].visible = true
