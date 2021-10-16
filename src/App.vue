@@ -9,9 +9,11 @@
           @select-card="flipCard"/> 
   </section>
   <h2>{{ status }}</h2>
+  <button @click="shuffleCards">Shuffle</button>
 </template>
 
 <script>
+import _ from 'lodash'
 import Card from '@/components/Card.vue';
 import { computed, ref } from '@vue/reactivity';
 import { watch } from '@vue/runtime-core';
@@ -39,10 +41,14 @@ export default {
       return remainingCards / 2
     })
 
+    const shuffleCards = () => {
+      cardList.value = _.shuffle(cardList.value)
+    }
+
     for (let i = 0; i < 16; i++){
       cardList.value.push({
-        value: 8,
-        visible: false,
+        value: i,
+        visible: true,
         position: i,
         matched: false,
       })
@@ -76,7 +82,7 @@ export default {
       }
     }, {  deep: true })
     return{
-      cardList, flipCard, userSelection,status,
+      cardList, flipCard, userSelection,status,shuffleCards
     }
   }
 }
