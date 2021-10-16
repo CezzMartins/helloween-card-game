@@ -58,6 +58,10 @@ import { computed } from '@vue/reactivity'
   position: relative;
   transition: 0.5s transform ease;
   transform-style: preserve-3d;
+  cursor: pointer;
+}
+.card:hover{
+    transform: scale(1.1);
 }
 .card.is-flipped{
     transform: rotateY(180deg);
