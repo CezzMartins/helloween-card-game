@@ -4,7 +4,7 @@
             <img :src="require(`@/assets/images/${value}.png`)" :alt="value" />
             <img v-if="matched" src="../assets/images/checkmark.svg" class="icon-checkmark"/>
         </div>
-        <div class="card-face is-back">
+        <div class="card-face is-back" style="color: #000; font-size: 2rem;">
         </div>
     </div>
 </template>
