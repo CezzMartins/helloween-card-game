@@ -9,11 +9,12 @@
           @select-card="flipCard"/> 
   </section>
   <h2>{{ status }}</h2>
+  <h3>Remaining Pairs {{ remainingPairs  }}</h3>
 </template>
 
 <script>
 import Card from '@/components/Card.vue';
-import { ref } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
 import { watch } from '@vue/runtime-core';
 
 export default {
@@ -26,9 +27,16 @@ export default {
     const userSelection = ref([])
     const status = ref('')
 
+
+    const remainingPairs = computed(() => {
+      const remainingCards = cardList.value.filter((card) => card.matched === false).length
+      console.log(remainingCards)
+      return remainingCards / 2
+    })
+
     for (let i = 0; i < 16; i++){
       cardList.value.push({
-        value: i,
+        value: 8,
         visible: false,
         position: i,
         matched: false,
@@ -45,7 +53,7 @@ export default {
       }
     }
 
-    watch(userSelection, (currentValue) => {
+    watch(userSelection, (currentValue) => { 
       if (currentValue.length === 2){ 
         const cardOne =  currentValue[0]
         const cardTwo =  currentValue[1]
@@ -53,19 +61,18 @@ export default {
         if(cardOne.faceValue === cardTwo.faceValue){
           status.value = "Matched!"
           cardList.value[cardOne.position].matched = true
+          cardList.value[cardTwo.position].matched = true
         }else {
           status.value = "Mismatch!"
           cardList.value[cardOne.position].visible = false
           cardList.value[cardTwo.position].visible = false
         }
-
-        
-
         userSelection.value.length = 0
       }
     }, {  deep: true })
     return{
-      cardList, flipCard, userSelection,status
+      cardList, flipCard, userSelection,status,
+      remainingPairs
     }
   }
 }
