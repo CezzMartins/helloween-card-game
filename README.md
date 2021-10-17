@@ -11,6 +11,7 @@ I carried out this project through classes and studies on the internet, in order
 <button style="color: #fff; background-color: #ffa500; border:none; outline:none; border-radius: 4px; height: 50px; display:flex; align-items: center; justify-content:center;">
 <a href="https://616c37b27f9d4f40dcdef356--dazzling-kirch-e0770d.netlify.app/" style="color: #fff; font-weight: bold; font-size: 20px" target="_blank">site is available here</a></button>
 
+[button url="https://616c37b27f9d4f40dcdef356--dazzling-kirch-e0770d.netlify.app/"]
 
 ```
 Start Game ⬇️⬇️⬇️⬇️⬇️
