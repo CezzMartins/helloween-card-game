@@ -2,6 +2,10 @@
   <div class="container">
     <h1 class="sr-only">Peek a Vue</h1>
     <img src="@/assets/images/peek-a-vue-title.png" alt="title game" class="title">
+    <section class="description">
+      <p>Welcome to Peek-a-Vue</p>
+      <p>A card matching game by Vue.js</p>
+    </section>
     <transition-group tag="section" name="shuffle-card" class="game-board">
       <Card v-for="card in cardList" 
             :key="`${card.value}-${card.variant}`" 
@@ -12,7 +16,11 @@
             @select-card="flipCard"/> 
     </transition-group>
     <h2>{{ status }}</h2>
-    <button @click="restartGame" class="button"> 
+    <button v-if="newPlayer" @click="startGame" class="button"> 
+      <img src="@/assets/images/play.svg" alt="restart button"> 
+      Start Game
+    </button>
+    <button v-else @click="restartGame" class="button"> 
       <img src="@/assets/images/restart.svg" alt="restart button"> 
       Restart Game
     </button>
@@ -34,7 +42,13 @@ export default {
   setup(){
     const cardList = ref([])
     const userSelection = ref([])
+    const newPlayer = ref(true)
 
+
+    const startGame = () => {
+      newPlayer.value = false
+      restartGame()
+    }
     // player status in game win or keep playing
     const status = computed(() => {
       if(remainingPairs.value === 0){
@@ -136,7 +150,7 @@ export default {
       }
     }, {  deep: true })
     return{
-      cardList, flipCard, userSelection,status, restartGame
+      cardList, flipCard, userSelection,status, restartGame, newPlayer, startGame
     }
   }
 }
@@ -218,5 +232,12 @@ button:hover{
 
 .shuffle-card-move{
   transition: transform 0.6s ease-in;
+}
+.description p{
+  margin: 0;
+  font-weight: 700;
+}
+.description p:last-child{
+  margin-bottom: 30px;
 }
 </style>
