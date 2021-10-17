@@ -235,7 +235,7 @@ button{
   justify-content: center;
   gap: 5px;
 
-  background-color: orange;
+  background-color: #ffa500;
   font-weight: 700;
   color: white;
   padding: 1rem;
