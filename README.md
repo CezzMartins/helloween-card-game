@@ -13,14 +13,15 @@ I carried out this project through classes and studies on the internet, in order
 ```
 Start Game ⬇️⬇️⬇️⬇️⬇️
 ```
-<img src="./public/img/gif-presentation.gif" style="margin-bottom: 100px"/>
+
+![gif](./public/img/gif-presentation.gif)
 
 ```
 finding pairs ⬇️⬇️⬇️⬇️⬇️
 ```
-<img src="./public/img/gif-presentation-2.gif" style="margin-bottom: 100px"/>
+![gif](./public/img/gif-presentation-2.gif)
 
 ```
 winning and restarting the game ⬇️⬇️⬇️⬇️⬇️
 ```
-<img src="./public/img/gif-presentation-3.gif" style="margin-bottom: 100px"/>
+![gif](./public/img/gif-presentation-3.gif)
