@@ -6,7 +6,7 @@
       <p>Welcome to Peek-a-Vue</p>
       <p>A card matching game by Vue.js</p>
     </section>
-    <transition-group tag="section" name="shuffle-card" class="game-board">
+    <transition-group tag="section" name="shuffle-card" class="game-board" :class="cardBlocked">
       <Card v-for="card in cardList" 
             :key="`${card.value}-${card.variant}`" 
             :value="card.value" 
@@ -31,7 +31,7 @@
 import _ from 'lodash'
 import Card from '@/components/Card.vue';
 import { computed, ref } from '@vue/reactivity';
-import { onMounted, watch } from '@vue/runtime-core';
+import { watch } from '@vue/runtime-core';
 import { lauchConfetti } from '@/utilities/confetti'
 
 export default {
@@ -43,17 +43,19 @@ export default {
     const cardList = ref([])
     const userSelection = ref([])
     const newPlayer = ref(true)
+    const blockStyle = ref(true)
 
-    const gameSetup = async () => {
-      cardList.value =  await  _.shuffle(cardList.value)
-  }
-
-    onMounted(gameSetup)
+    const cardBlocked = computed(() => {
+      
+      if (blockStyle.value){
+        return 'card-blocked' 
+      }else{
+        
+        return
+      }
+    })
+      
     
-    const startGame = () => {
-      newPlayer.value = false
-      restartGame()
-    }
     // player status in game win or keep playing
     const status = computed(() => {
       if(remainingPairs.value === 0){
@@ -70,9 +72,14 @@ export default {
       return remainingCards / 2
     })
 
+    const startGame = () => {
+      restartGame()
+    }
+
     //restart game and shuffle
     const restartGame = () => {
       cardList.value = _.shuffle(cardList.value)
+      blockStyle.value = false
 
       cardList.value = cardList.value.map((card, index) => {
         return{
@@ -155,7 +162,8 @@ export default {
       }
     }, {  deep: true })
     return{
-      cardList, flipCard, userSelection,status, restartGame, newPlayer, startGame
+      cardList, flipCard, userSelection,status, restartGame, newPlayer,
+      cardBlocked, blockStyle,startGame
     }
   }
 }
@@ -163,6 +171,13 @@ export default {
 
 <style>
 
+.card-blocked{
+  pointer-events: none;
+  user-select: none;
+  cursor: not-allowed;
+  filter: brightness(0.5);
+  transition: all ease 0.2s;
+}
 html, body{
   margin: 0;
   padding: 0; 
