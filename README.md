@@ -1,24 +1,24 @@
-# card-game-halloween
 
-## Project setup
-```
-npm install
-```
+# The-Hellowen-Card-Matching
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Game Created with Vue.js using Composintion api. 
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+<p>
+I carried out this project through classes and studies on the internet, in order to develop and better understand how Vue.js Composition Api is used, I really liked the result and was able to learn a lot during the process.
+</p>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+Start Game ⬇️⬇️⬇️⬇️⬇️
+```
+<img src="./public/img/gif-presentation.gif" style="margin-bottom: 100px"/>
+
+```
+finding pairs ⬇️⬇️⬇️⬇️⬇️
+```
+<img src="./public/img/gif-presentation-2.gif" style="margin-bottom: 100px"/>
+
+```
+winning and restarting the game ⬇️⬇️⬇️⬇️⬇️
+```
+<img src="./public/img/gif-presentation-3.gif" style="margin-bottom: 100px"/>
