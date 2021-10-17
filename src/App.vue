@@ -39,6 +39,9 @@ export default {
   components: {
     Card
   },
+  mounted () {
+    this.restartGame()
+  },
   setup(){
     const cardList = ref([])
     const userSelection = ref([])
