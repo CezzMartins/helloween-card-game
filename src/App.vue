@@ -74,6 +74,7 @@ export default {
 
     const startGame = () => {
       restartGame()
+      newPlayer.value = false
     }
 
     //restart game and shuffle
