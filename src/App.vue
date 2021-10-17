@@ -31,7 +31,7 @@
 import _ from 'lodash'
 import Card from '@/components/Card.vue';
 import { computed, ref } from '@vue/reactivity';
-import { watch } from '@vue/runtime-core';
+import { onMounted, watch } from '@vue/runtime-core';
 import { lauchConfetti } from '@/utilities/confetti'
 
 export default {
@@ -39,15 +39,17 @@ export default {
   components: {
     Card
   },
-  mounted () {
-    this.restartGame()
-  },
   setup(){
     const cardList = ref([])
     const userSelection = ref([])
     const newPlayer = ref(true)
 
+    const gameSetup = async () => {
+      cardList.value =  await  _.shuffle(cardList.value)
+  }
 
+    onMounted(gameSetup)
+    
     const startGame = () => {
       newPlayer.value = false
       restartGame()
