@@ -21,7 +21,6 @@ I carried out this project through classes and studies on the internet, in order
                     style="color: #fff; font-weight: bold; font-size: 20px" target="_blank">site is available here</a></button>
 
 
-[site is available here](https://616c37b27f9d4f40dcdef356--dazzling-kirch-e0770d.netlify.app/ "The best search engine for privacy").
 ```
 Start Game ⬇️⬇️⬇️⬇️⬇️
 ```
